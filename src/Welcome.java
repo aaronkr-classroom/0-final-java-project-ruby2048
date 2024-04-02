@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Welcome {
 	static final int NUM_BOOK = 3;
 	static final int NUM_ITEM = 7;
+	static CartItem[] mCartItem = new CartItem[NUM_BOOK];
+	static int mCartCount = 0;
 	
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
@@ -76,19 +78,30 @@ public class Welcome {
 	 * 	-int		phone	전화 번호
 	 * 변환 :
 	 */
-	public static void menuGuestInfo(String name, int phone) {
+	public static void menuGuestInfo(String name, int mobile) {
 		System.out.println("1. 현재 고객 정보 : ");
-		System.out.println("이름 : " + name + ", 연락처 : " + phone);
+		//System.out.println("이름 : " + name + ", 연락처 : " + phone);
+		Person person = new Person(name, mobile);
+		System.out.println("이름 : " + person.getName() + ", 연락처 : " + person.getPhone());
 	}
 	/**
-	 * 설명 : 장바구니 상품 목록
-	 * 매게변수 : 
-	 * 	-String		name	고개 이름
-	 * 	-int		phone	전화 번호
-	 * 변환 :
-	 */
+	* 설명 : 장바구니 상품 목록
+	* 매게변수 : 
+	* 	-String		name	고개 이름
+	* 	-int		phone	전화 번호
+	* 변환 :
+	*/
 	public static void menuCartItemList() {
-		System.out.println("2번 장바구니 상품 목록 보기");
+		System.out.println("장바구니 상품 목록 : ");
+		System.out.println("-------------------------------------");
+		System.out.println("	도서ID\t |	수량\t|	합계");
+		for (int i = 0; i < mCartCount; i++) {
+			System.out.print("	" + mCartItem[i].getBookID() + "\t| ");
+			System.out.print("	" + mCartItem[i].getQuantity() + "\t| ");
+			System.out.print("	" + mCartItem[i].getTotalPrice() + "\t| ");
+			System.out.print("	");
+		}
+		System.out.println("-------------------------------------");
 	}
 	
 	public static void menuCartClear() {
@@ -107,7 +120,7 @@ public class Welcome {
 		boolean quit = false;
 		
 		while (!quit) {
-			System.out.println("5. 장바구니에 항목 추가하기 : ");
+			System.out.print("장바구니에 추가할 도서의 ID를 입력하세요 : ");
 			Scanner input = new Scanner(System.in);
 			String str = input.nextLine();
 			
@@ -128,6 +141,9 @@ public class Welcome {
 				
 				if(str.toUpperCase().equals("Y")) {
 					System.out.println(book[numId][0] + " 도서가 장바구니에 추가되었습니다.");
+					if (!isCartInBook(book[numId][0])) {
+						mCartItem[mCartCount++] = new CartItem(book(numId));
+					}
 				}
 				quit = true;
 			}
@@ -136,6 +152,16 @@ public class Welcome {
 			}
 		}
 		
+		public static boolean isCartInBook(String bookId) {
+			boolean flag = false;
+			for (int i = 0; i < mCartCount; i++) {
+				if(bookId == mCartItem[i].getBookID) {
+					mCartItem[i].setQuantity(mCartItem[i].getQuantity() + 1);
+					flag = true;
+				}
+			}
+			return flag;
+		}
 	}
 
 	public static void menuCartRemoveItemCount() {
