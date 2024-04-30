@@ -16,7 +16,7 @@ public class Cart implements CartInterface {
 			System.out.print(booklist[i].getDescription() +"|");
 			System.out.print(booklist[i].getCategory() +"|");
 			System.out.print(booklist[i].getReleaseDate() +"|");
-			System.out.print("");
+			System.out.println("");
 		}
 	}
 	
