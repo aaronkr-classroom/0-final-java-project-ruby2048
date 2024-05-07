@@ -12,7 +12,7 @@ public class Welcome {
 	static Cart mCart = new Cart();
 	static User mUser;
 	
-	public static void main(String[] args) throws CartException {
+	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		Book[] mBookList = new Book[NUM_BOOK];
 		
@@ -34,59 +34,51 @@ public class Welcome {
 			System.out.println("\t" + tagline);
 			menuIntro();
 			try {
-				System.out.print("메뉴 번호를 선택해주세요 ");
-				int n = input.nextInt();
-				if (n < 1 || n > 9) {
+				System.out.println("메뉴 번호를 선택하세요 : ");
+				int choice = input.nextInt();
+				if (choice < 1 || choice > 9) {
 					System.out.println("1부터 9까지의 숫자를 입력하세요.");
 				}
 				else {
-					switch(n) {
+					switch(choice) {
 					case 1:
 						menuGuestInfo(name, phone);
+						break;
+					case 2:
+						menuCartItemList();
+						break;
+					case 3:
+						menuCartClear();
+						break;
+					case 4:
+						menuCartBil();
+						break;
+					case 5:
+						menuCartAddItem(mBookList);
+						break;
+					case 6:
+						menuCartRemoveItemCount();
+						break;
+					case 7:
+						menuCartRemoveItem();
+						break;
+					case 8:
+						menuExit();
+						quit = true;
+						break;
+					case 9:
+						menuAdminLogin();
 						break;
 					}
 				}
 			}
+			catch(CartException e) {
+				System.out.println(e.getMessage());
+				quit = true;
+			}
 			catch(Exception e) {
 				System.out.println("올바르지 않은 메뉴 선택으로 종료합니다.");
 				quit = true;
-			}
-			System.out.println("메뉴 번호를 선택하세요 : ");
-			int choice = input.nextInt();
-			if (choice < 1 || choice > 9) {
-				System.out.println("1부터 9까지의 숫자를 입력하세요.");
-			}
-			else {
-				switch(choice) {
-				case 1:
-					menuGuestInfo(name, phone);
-					break;
-				case 2:
-					menuCartItemList();
-					break;
-				case 3:
-					menuCartClear();
-					break;
-				case 4:
-					menuCartBil();
-					break;
-				case 5:
-					menuCartAddItem(mBookList);
-					break;
-				case 6:
-					menuCartRemoveItemCount();
-					break;
-				case 7:
-					menuCartRemoveItem();
-					break;
-				case 8:
-					menuExit();
-					quit = true;
-					break;
-				case 9:
-					menuAdminLogin();
-					break;
-				}
 			}
 		}
 	}
