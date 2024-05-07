@@ -1,11 +1,10 @@
 package com.market.main;
-import java.util.Scanner;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import com.market.bookitem.Book;
+import java.util.*;
+import com.market.member.*;
 import com.market.cart.Cart;
-import com.market.member.Admin;
-import com.market.member.User;
+import com.market.bookitem.Book;
+import java.text.SimpleDateFormat;
+import com.market.exception.CartException;
 
 public class Welcome {
 	static final int NUM_BOOK = 3;
@@ -34,6 +33,24 @@ public class Welcome {
 			System.out.println("\t" + greeting);
 			System.out.println("\t" + tagline);
 			menuIntro();
+			try {
+				System.out.print("메뉴 번호를 선택해주세요 ");
+				int n = input.nextInt();
+				if (n < 1 || n > 9) {
+					System.out.println("1부터 9까지의 숫자를 입력하세요.");
+				}
+				else {
+					switch(n) {
+					case 1:
+						menuGuestInfo(name, phone);
+						break;
+					}
+				}
+			}
+			catch(Exception e) {
+				System.out.println("올바르지 않은 메뉴 선택으로 종료합니다.");
+				quit = true;
+			}
 			System.out.println("메뉴 번호를 선택하세요 : ");
 			int choice = input.nextInt();
 			if (choice < 1 || choice > 9) {
@@ -108,9 +125,9 @@ public class Welcome {
 		}
 	}
 	
-	public static void menuCartClear() {
+	public static void menuCartClear() throws CartException{
 		if(mCart.mCartCount == 0) {
-			System.out.println("장바구니에 항목이 없습니다.");
+			throw new CartException("장바구니에 항목이 없습니다.");
 		}
 		else {
 			System.out.println("장바구니의 모든 항목을 삭제하겠습니다? Y | N");
@@ -173,9 +190,9 @@ public class Welcome {
 		System.out.println("6. 장바구니의 항목 수량 줄이기");
 	}
 
-	public static void menuCartRemoveItem() {
+	public static void menuCartRemoveItem() throws CartException {
 		if(mCart.mCartCount == 0) {
-			System.out.println("장바구니에 항목이 없습니다");
+			throw new CartException("장바구니에 항목이 없습니다");
 		}
 		else {
 			menuCartItemList();
@@ -207,9 +224,9 @@ public class Welcome {
 		}
 	}
 
-	public static void menuCartBil() {
+	public static void menuCartBil() throws CartException {
 		if(mCart.mCartCount == 0) {
-			System.out.println("장바구니에 항목이 없습니다.");
+			throw new CartException("장바구니에 항목이 없습니다.");
 		}
 		else {
 			System.out.println("배송받을 분은 고객 정보와 같습니까? Y|N");
