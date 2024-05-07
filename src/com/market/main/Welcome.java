@@ -12,7 +12,7 @@ public class Welcome {
 	static Cart mCart = new Cart();
 	static User mUser;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CartException {
 		Scanner input = new Scanner(System.in);
 		Book[] mBookList = new Book[NUM_BOOK];
 		
