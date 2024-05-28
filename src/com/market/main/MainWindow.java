@@ -15,6 +15,7 @@ public class MainWindow extends JFrame {
 	
 	private void initContainer(String title, int x, int y, int width, int height) {
 		setTitle(title);
+		setBounds(x, y, width, height);
 	}
 	
 	public static void main(String[] args) {
