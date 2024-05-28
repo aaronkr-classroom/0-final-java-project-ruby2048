@@ -1,5 +1,8 @@
 package com.market.cart;
 import java.util.ArrayList;
+
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 import com.market.bookitem.Book;
 
 public class Cart implements CartInterface {
@@ -63,5 +66,13 @@ public class Cart implements CartInterface {
 	public void removeCart(int numId) {
 		mCartItem.remove(numId);
 		mCartCount = mCartItem.size();
+	}
+	
+	public ArrayList<CartItem> getmCartItem() {
+		return mCartItem;
+	}
+	
+	public void setmCartItem(ArrayList<CartItem> mCartItem) {
+		this.mCartItem = mCartItem;
 	}
 }
